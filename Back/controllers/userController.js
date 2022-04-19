@@ -7,7 +7,7 @@ const fs = require('fs');
 
 
 const schema = Joi.object({
-    email: Joi.string().regex(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/),
+    email: Joi.string().regex(/^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/),
     password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{8,30}$')),
 })
 

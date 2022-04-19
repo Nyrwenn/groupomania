@@ -20,8 +20,31 @@ function Signup(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [filePicture, setFilePicture] = useState(null);
-    const [changePicture, setChangePiture] = useState(false)
+    const [changePicture, setChangePiture] = useState(false);
+    const [nameErr, setNameErr] = useState(false);
+    const [firstnameErr, setFirstnameErr] = useState(false);
+    const [emailErr, setEmailErr] = useState(false);
+    const [pswdErr, setPswdErr] = useState(false);
     const navigate = useNavigate();
+    const regexName = /(^.{1,}[a-zA-ZÀ-ÿ]+$)/;
+    const regexEmail = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/;
+    const regexPswd = new RegExp('^[a-zA-Z0-9]{8,30}$');
+    const validate = () => {
+        if (!regexName.test(name)) {
+            setNameErr(true);
+        }
+        if (!regexName.test(firstname)) {
+            setFirstnameErr(true);
+        }
+
+        if (!regexEmail.test(email)) {
+            setEmailErr(true);
+        }
+
+        if (!regexPswd.test(password)) {
+            setPswdErr(true);
+        }
+    }
 
 
     const sendChecker = (e) => {
@@ -194,6 +217,7 @@ function Signup(props) {
                     onChange={(e) => setName(e.target.value)}
                 />
             </div>
+            {nameErr && <p className="alert">Veuillez saisir un nom valide (min 3 caratères, pas de chiffres).</p>}
             <div className="form_row">
                 <label htmlFor="firstname" className="txt_Signup">Prénom</label>
                 <input type="text" id="firstname" className="inputs" name="firstname" required
@@ -201,6 +225,7 @@ function Signup(props) {
                     onChange={(e) => setFirstname(e.target.value)}
                 />
             </div>
+            {firstnameErr && <p className="alert">Veuillez saisir un prénom valide (min 3 caractères, pas de chiffres).</p>}
             <div className="form_row">
                 <label htmlFor="email" className="txt_Signup">Email</label>
                 <input type="email" id="email" className="inputs" name="email" required
@@ -208,6 +233,7 @@ function Signup(props) {
                     onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
+            {emailErr && <p className="alert">Veuillez saisir un email au format valide.</p>}
             <div className="form_row">
                 <label htmlFor="password" className="txt_Signup">Mot de passe</label>
                 <input type="password" id="password" className="inputs" name="password" required
@@ -215,7 +241,8 @@ function Signup(props) {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
-            <input id="btnConnexion" type="submit" value={props.txtButton} />
+            {pswdErr && <p className="alert">Votre mot de passe doit contenir minimum 8 caractères.</p>}
+            <input id="btnConnexion" type="submit" value={props.txtButton} onClick={validate} />
         </form>
     </div>
 }
