@@ -1,0 +1,159 @@
+$redColor: #FD2D01;
+$pinkColor: #FFD7D7;
+
+.appWrapper{
+display: flex;
+flex-direction: column; 
+width: 100%;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media screen and (max-width: 991px){
+        display: block;
+    }
+}
+
+.logo_container{
+    margin-top: -60px;
+    width: 20%;
+
+    @media screen and (max-width: 991px){
+        display: flex;
+        width: 30%;
+        margin-top: 0px;
+    }
+    
+}
+
+#logo_column{
+   width: 100%;
+}
+
+.title{
+    display: flex; 
+    margin-top: 50px;
+    justify-content: center;
+    @media screen and (max-width: 991px){
+        margin-top: 90px;
+    }
+
+}
+
+.nav_container{
+    display: flex;
+    margin-top: 25px;
+
+    @media screen and (max-width: 991px){
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 5px;
+        right: 10px;
+
+    }
+}
+
+.nav{
+    color: black;
+    font-weight: 700;
+    text-decoration: underline black;
+    padding: 20px;
+    cursor: pointer;
+
+    @media screen and (max-width: 991px){
+        padding: 5px;
+    }
+}
+
+.body{
+    display: flex;
+    flex-direction: row; 
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media screen and (max-width: 991px){
+        width: 100%;
+        flex-direction: column;
+    }
+}
+
+.btn_container{
+    width: 25%;
+
+    @media screen and (max-width: 991px){
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 40px;
+    }
+}
+
+
+
+#redButton{
+    display:flex;
+    border-radius: 20px;
+    padding: 10px;
+    width: 200px;
+    justify-content: center;
+    text-align: center;
+    border: none;
+    background: $redColor;
+    color: black;
+    border: solid transparent 2px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Libre Baskerville', serif;
+    align-self:flex-start;
+    margin-top: 100px;
+
+    
+   
+
+    &:hover{
+        background: $pinkColor;
+        color: $redColor;
+        cursor: pointer;
+    }
+
+    &:active{
+        background: white;
+        border: solid $redColor 2px;
+        color: $redColor;
+    }
+    @media screen and (max-width: 991px){
+        margin-top: 10px;
+    }
+}
+
+.container_btn_articles{
+    display: flex;
+    flex-direction: row; 
+    width: 100%;
+    @media screen and (max-width: 991px){
+        flex-direction: column;
+    }
+    
+}
+
+.articles{
+    display: flex;
+    width: 50%;
+    flex-direction: column; 
+    align-items: center;
+
+    @media screen and (max-width: 991px){
+        width: 100%;
+    }
+
+ 
+
+}
