@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Like.associate = models => {
-        Like.belongsTo(models.Article)
+        Like.belongsTo(models.Article);
     };
 
     return Like;

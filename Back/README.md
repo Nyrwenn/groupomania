@@ -56,13 +56,13 @@ To run the server write `nodemon server` or `node server`in your terminal.
 # Create a moderator/admin profile
 To create a moderator for your website you have to go into database and type:
 
-```insert into Users (avatar, name, firstname, email, password, admin, createdAt, updatedAt) 
-values ('null', 'Modé', 'Rateur', 'moderateur@gmail.com', '$2b$10$zVwuQagFzm0FBFDWgmgH6OtOeDMxelUGLLPXE1pyYUIbduwWK8xoS', 1, NOW(), NOW());```
+`insert into Users (avatar, name, firstname, email, password, admin, createdAt, updatedAt) 
+values ('null', 'Modé', 'Rateur', 'moderateur@gmail.com', '$2b$10$zVwuQagFzm0FBFDWgmgH6OtOeDMxelUGLLPXE1pyYUIbduwWK8xoS', 1, NOW(), NOW());`
 
 To be connected to the app, the email is: moderateur@gmail.com and the password is: aaaaaaaa.
 
 If you want to set a normal user as a moderator, type this command in your database:
 
-```update Users 
+`update Users 
 set admin = true
-where email = "your user email"; ```
+where email = "your user email"; `

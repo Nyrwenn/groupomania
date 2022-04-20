@@ -104,7 +104,7 @@ exports.modifyUser = (req, res, next) => {
                 if (userId === user.id) {
 
                     let filename = null;
-                    if (req.file) {
+                    if (req.file && user.avatar) {
                         filename = user.avatar.split('/images/')[1];
                     }
 
@@ -123,8 +123,14 @@ exports.modifyUser = (req, res, next) => {
                 } else {
                     res.status(403).json({ message: "Unauthorized request" })
                 }
-            }).catch((error) => res.status(400).json({ error, message: "error two" }));
-    }).catch((error) => res.status(400).json({ error, message: "error two" }));
+            }).catch((error) => {
+                console.log(error)
+                res.status(400).json({ error, message: "error one" })
+            });
+    }).catch((error) => {
+        console.log('err', error)
+        res.status(400).json({ error, message: "error two" })
+    });
 
 
 };
@@ -156,6 +162,8 @@ exports.deleteUser = (req, res) => {
                     }).finally(() => {
 
                         fs.unlink(`images/${filename}`, () => {
+                            db.Like.destroy({ where: { userId: userId } })
+                                .catch((error) => res.status(500).json({ error }))
                             db.User.destroy({ where: { id: req.params.id } })
                                 .then(() => {
                                     res.status(200).json({ message: "User removed !" })

@@ -14,6 +14,12 @@ function Article(props) {
     const auth = props.auth;
     const [legend, setLegend] = useState('');
 
+    function disconnected() {
+        localStorage.removeItem('JWT');
+        window.location.reload();
+
+    }
+
 
 
     const send = (e) => {
@@ -53,7 +59,7 @@ function Article(props) {
             <h1 className="title">Créer une publication</h1>
             <div className="nav_container">
                 <Link to="/profile" ><p className="nav">Profil</p></Link>
-                <p className="nav">Déconnexion</p>
+                <p className="nav" onClick={() => disconnected()}>Déconnexion</p>
             </div>
         </header>
         <div className="bodyWrapper">

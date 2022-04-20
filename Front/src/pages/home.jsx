@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import App from '../components/app';
 import axios from 'axios';
 import { userToken } from '../utils/path';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -14,6 +15,7 @@ function Home() {
     //Le composant connexion disparaît
 
     const [connected, setConnected] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const config = {
@@ -30,7 +32,7 @@ function Home() {
                 })
                 .catch(function (error) {
                     localStorage.removeItem('JWT');
-
+                    return navigate('/');
                 })
         }
 
