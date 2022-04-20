@@ -28,7 +28,7 @@ function Signup(props) {
     const navigate = useNavigate();
     const regexName = /(^.{1,}[a-zA-ZÀ-ÿ]+$)/;
     const regexEmail = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/;
-    const regexPswd = new RegExp('^[a-zA-Z0-9]{8,30}$');
+    const regexPswd = /^[a-zA-Z0-9]{8,30}$/;
     const validate = () => {
         if (!regexName.test(name)) {
             setNameErr(true);

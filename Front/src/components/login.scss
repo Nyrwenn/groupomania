@@ -45,6 +45,11 @@ body{
     padding: 5px;
     width: 220px;
     border: solid black 2px;
+
+    &:focus{
+        border: solid $pinkColor 2px;
+        outline: none;
+    }
 }
 
 .txtInput{

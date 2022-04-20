@@ -8,7 +8,34 @@
 Create a database: `groupomania`
 
 # Backend
-Go to the file config.json 
+- Create a folder `images`
+- Create a folder `config`, into that folder create file `config.json`.
+Into the config.json file, paste the following code:
+{
+  "development": {
+    "username": "your username",
+    "password": "your password",
+    "database": "groupomania",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+
+- Go to the file config.json 
 `./config/config.json`
 
 In "development"
