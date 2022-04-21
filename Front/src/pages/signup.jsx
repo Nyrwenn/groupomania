@@ -26,126 +26,144 @@ function Signup(props) {
     const [emailErr, setEmailErr] = useState(false);
     const [pswdErr, setPswdErr] = useState(false);
     const navigate = useNavigate();
-    const regexName = /(^.{1,}[a-zA-ZÀ-ÿ]+$)/;
-    const regexEmail = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/;
-    const regexPswd = /^[a-zA-Z0-9]{8,30}$/;
+
+    const regexName = new RegExp('(^.{2,}[a-zA-ZÀ-ÿ]+$)');
+    const regexFirstname = new RegExp('(^.{2,}[a-zA-ZÀ-ÿ]+$)');
+    const regexEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
+    const regexPswd = new RegExp('^[a-zA-Z0-9]{8,30}$');
+
+
     const validate = () => {
-        if (!regexName.test(name)) {
-            setNameErr(true);
+        if (!regexName.test(name) && name !== '') {
+            setNameErr(true)
+        } else {
+            setNameErr(false)
         }
-        if (!regexName.test(firstname)) {
+        if (!regexFirstname.test(firstname) && firstname !== '') {
             setFirstnameErr(true);
+        } else {
+            setFirstnameErr(false)
         }
 
-        if (!regexEmail.test(email)) {
+        if (!regexEmail.test(email) && email !== '') {
             setEmailErr(true);
+        } else {
+            setEmailErr(false)
         }
 
-        if (!regexPswd.test(password)) {
+        if (!regexPswd.test(password) && password !== '') {
             setPswdErr(true);
+        } else {
+            setPswdErr(false)
         }
-    }
-
+    };
 
     const sendChecker = (e) => {
         e.preventDefault();
-        const data = {
-            avatar: filePicture,
-            profile: {
-                name: name,
-                firstname: firstname,
-                email: email,
-                password: password
-            }
+        if (regexName.test(name) &&
+            regexFirstname.test(firstname) &&
+            regexEmail.test(email) &&
+            regexPswd.test(password)) {
+            const data = {
+                avatar: filePicture,
+                profile: {
+                    name: name,
+                    firstname: firstname,
+                    email: email,
+                    password: password
+                }
 
-        };
-
-
-
-        if (props.auth) {
-            if (changePicture) {
-
-                const dataSend = new FormData();
-                //console.log(data);
-                dataSend.append(
-                    "image",
-                    e.target.avatar.files[0],
-                    e.target.avatar.files[0].name
+            };
 
 
-                );
-                dataSend.set("profile", JSON.stringify(data.profile));
 
-                console.log(props.auth)
-                const config = {
-                    headers: {
-                        'Content-Type': `multipart/form-data`,
-                        Authorization: `Bearer ${props.auth.token}`
-                    }
-                };
+            if (props.auth) {
+                if (changePicture) {
 
-                axios.put(putProfile + props.auth.userId, dataSend, config)
-                    .then(function (res) {
-                        navigate('/');
-                        console.log(res);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                    const dataSend = new FormData();
+                    //console.log(data);
+                    dataSend.append(
+                        "image",
+                        e.target.avatar.files[0],
+                        e.target.avatar.files[0].name
+
+
+                    );
+                    dataSend.set("profile", JSON.stringify(data.profile));
+
+                    console.log(props.auth)
+                    const config = {
+                        headers: {
+                            'Content-Type': `multipart/form-data`,
+                            Authorization: `Bearer ${props.auth.token}`
+                        }
+                    };
+
+                    axios.put(putProfile + props.auth.userId, dataSend, config)
+                        .then(function (res) {
+                            navigate('/');
+                            console.log(res);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                } else {
+                    const config = {
+                        headers: {
+                            Authorization: `Bearer ${props.auth.token}`
+                        }
+                    };
+
+                    axios.put(putProfile + props.auth.userId, data.profile, config)
+                        .then(function (res) {
+                            navigate('/');
+                            console.log(res);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+
+                }
+
             } else {
-                const config = {
-                    headers: {
-                        Authorization: `Bearer ${props.auth.token}`
-                    }
-                };
+                if (changePicture) {
+                    const dataSend = new FormData();
+                    //console.log(data);
+                    dataSend.append(
+                        "image",
+                        e.target.avatar.files[0],
+                        e.target.avatar.files[0].name
 
-                axios.put(putProfile + props.auth.userId, data.profile, config)
-                    .then(function (res) {
-                        navigate('/');
-                        console.log(res);
+
+                    );
+                    dataSend.set("profile", JSON.stringify(data.profile));
+                    axios.post(postProfile, dataSend, {
+                        headers: {
+                            'Content-Type': `multipart/form-data`,
+                        }
                     })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                        .then(function (res) {
+                            navigate('/');
 
+                            console.log(res);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                } else {
+                    axios.post(postProfile, data.profile)
+                        .then(function (res) {
+                            navigate('/');
+                            console.log(res);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+
+                }
             }
-
         } else {
-            if (changePicture) {
-                const dataSend = new FormData();
-                //console.log(data);
-                dataSend.append(
-                    "image",
-                    e.target.avatar.files[0],
-                    e.target.avatar.files[0].name
-
-
-                );
-                dataSend.set("profile", JSON.stringify(data.profile));
-                axios.post(postProfile, dataSend, {
-                    headers: {
-                        'Content-Type': `multipart/form-data`,
-                    }
-                })
-                    .then(function (res) {
-                        navigate('/');
-
-                        console.log(res);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            } else {
-                axios.post(postProfile, data.profile)
-                    .then(function (res) {
-                        navigate('/');
-                        console.log(res);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-
-            }
+            validate();
         }
 
     }
@@ -242,7 +260,7 @@ function Signup(props) {
                 />
             </div>
             {pswdErr && <p className="alert">Votre mot de passe doit contenir minimum 8 caractères.</p>}
-            <input id="btnConnexion" type="submit" value={props.txtButton} onClick={validate} />
+            <input id="btnConnexion" type="submit" value={props.txtButton} />
         </form>
     </div>
 }

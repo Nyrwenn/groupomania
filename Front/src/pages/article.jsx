@@ -16,6 +16,7 @@ function Article(props) {
 
     function disconnected() {
         localStorage.removeItem('JWT');
+        navigate('/');
         window.location.reload();
 
     }
